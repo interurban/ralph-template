@@ -15,14 +15,23 @@ When invoked:
    - Write the production code
    - Write unit tests (Vitest) for any logic
    - Write E2E tests (Playwright) for any user-facing changes
-6. Run `npm run validate`
-7. If validation fails, fix issues and re-run (max 3 attempts)
-8. If validation passes:
+6. **UI tasks**: Take a screenshot after the E2E test
+   - Save to `screenshots/TASK-{ID}-{description}.png`
+   - Verify the screenshot looks correct — does the UI match what the task asked for?
+   - If debugging a visual issue, compare against previous screenshots in `screenshots/`
+7. Run `npm run validate`
+8. If validation fails, fix issues and re-run (max 3 attempts)
+9. If validation passes:
    - Commit with conventional format referencing task ID
    - Mark task `complete` in `tasks/CURRENT.md`
    - Append entry to `DEV_LOG.md`
-9. If validation fails 3 times:
-   - Mark task `blocked` with failure notes
-   - Stop
+10. If validation fails 3 times:
+    - Mark task `blocked` with failure notes
+    - Stop
+
+Screenshot pattern for E2E tests:
+```typescript
+await page.screenshot({ path: 'screenshots/TASK-001-profile-page.png', fullPage: true });
+```
 
 You implement exactly ONE task per invocation. Keep changes focused and minimal.

@@ -48,3 +48,7 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+# Task screenshots (keep dir, ignore contents)
+/screenshots/*
+!/screenshots/.gitkeep

@@ -25,6 +25,17 @@ alwaysApply: false
 - Prefer `getByRole`, `getByText`, `getByTestId` over CSS selectors
 - Run with `npm run test:e2e`
 
+## Screenshots (UI Tasks)
+
+- After E2E assertions pass, capture a full-page screenshot
+- Save to `screenshots/TASK-{ID}-{short-description}.png`
+- Visually verify the screenshot matches the task's acceptance criteria
+- Use previous screenshots as reference when debugging visual issues
+
+```typescript
+await page.screenshot({ path: 'screenshots/TASK-001-landing.png', fullPage: true });
+```
+
 ## Validation
 
 - Run `npm run validate` to execute the full pipeline (TypeScript + lint + unit + E2E)
