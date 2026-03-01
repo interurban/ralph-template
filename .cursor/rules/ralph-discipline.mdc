@@ -9,19 +9,24 @@ At the start of every session, read `PROMPT.md` for the full iteration protocol.
 
 ## Session Checklist
 
-1. Read `tasks/CURRENT.md` — find the next `pending` task
-2. Read the task's spec file if one is referenced
-3. Implement only that single task
-4. Run `npm run validate` before committing
-5. Commit with conventional format referencing the task ID
-6. Mark the task `complete` in `tasks/CURRENT.md`
-7. Append an entry to `DEV_LOG.md`
-8. Stop — do not start another task
+1. Read `prd/SUMMARY.md` for project context
+2. Check `STEERING.md` for critical work (handle before tasks)
+3. Read `tasks/CURRENT.md` — find the next `pending` task
+4. Read the task's spec if one is referenced
+5. Read `STRUCTURE.md` for current project layout
+6. Implement only that single task
+7. Run `npm run validate` before committing
+8. Update `STRUCTURE.md` if directories changed
+9. Commit with conventional format referencing the task ID
+10. Mark the task `complete` in `tasks/CURRENT.md`
+11. Append an entry to `DEV_LOG.md`
+12. Output promise tag and stop
 
 ## Hard Rules
 
 - One task per session. No exceptions.
 - Never commit without passing validation.
 - If validation fails 3 times, mark task `blocked` and stop.
-- If a task is ambiguous, ask the user — do not guess.
-- Keep changes minimal and focused.
+- If a task is ambiguous, stop and ask — do not guess.
+- Follow code quality standards in `AGENTS.md`.
+- No `git push`. No git remote changes.

@@ -7,59 +7,77 @@ description: Execute a complete Ralph iteration cycle — read task, implement, 
 
 Complete workflow for one atomic development iteration.
 
-## Workflow
-
-Copy this checklist and track progress:
+## Pre-Flight
 
 ```
-Ralph Iteration:
-- [ ] Step 1: Read PROMPT.md
-- [ ] Step 2: Read tasks/CURRENT.md, select next pending task
+Pre-flight:
+- [ ] Read prd/SUMMARY.md for project context
+- [ ] Check STEERING.md for critical work (complete before tasks)
+- [ ] Check last 5 entries in DEV_LOG.md for recent context
+```
+
+If `STEERING.md` has items, complete them first (in order), remove each when done, then proceed.
+
+## Iteration Workflow
+
+```
+Iteration:
+- [ ] Step 1: Read tasks/CURRENT.md, select next pending task
+- [ ] Step 2: Update task status to in_progress
 - [ ] Step 3: Read spec (if referenced)
-- [ ] Step 4: Implement code + tests
-- [ ] Step 5: Run npm run validate
-- [ ] Step 6: Fix failures (max 3 retries)
-- [ ] Step 7: Commit with task ID
-- [ ] Step 8: Mark task complete
-- [ ] Step 9: Update DEV_LOG.md
+- [ ] Step 4: Read STRUCTURE.md for project layout
+- [ ] Step 5: Implement code + tests
+- [ ] Step 6: Run npm run validate
+- [ ] Step 7: Fix failures (max 3 retries)
+- [ ] Step 8: Update STRUCTURE.md if dirs changed
+- [ ] Step 9: Commit with task ID
+- [ ] Step 10: Mark task complete
+- [ ] Step 11: Update DEV_LOG.md
+- [ ] Step 12: Output promise tag and STOP
 ```
 
 ## Step Details
 
-**Step 1**: Read `PROMPT.md` to refresh the iteration protocol.
+**Step 1-3**: Read task and spec. Understand exactly what needs to be built.
 
-**Step 2**: Open `tasks/CURRENT.md`. Find the first task with `Status: pending`. Update it to `in_progress`.
+**Step 4**: Read `STRUCTURE.md` so you know where files live.
 
-**Step 3**: If the task has a `Spec` field, read that file for context.
-
-**Step 4**: Implement the task:
+**Step 5**: Implement the task:
 - Write production code in `src/`
-- Write Vitest unit tests for logic
+- Write Vitest unit tests for any logic
 - Write Playwright E2E tests for user-facing changes
-- Keep changes focused on this single task
+- Follow code quality standards in `AGENTS.md`
 
-**Step 5**: Run validation:
+**Step 6**: Run validation:
 ```bash
 npm run validate
 ```
 
-**Step 6**: If validation fails:
+**Step 7**: If validation fails:
 - Read the error output
 - Fix the issue
 - Re-run validation
-- After 3 failures, mark task `blocked` and stop
+- After 3 failures, mark task `blocked` and output `<promise>BLOCKED:reason</promise>`
 
-**Step 7**: Commit changes:
+**Step 8**: If you created or reorganized directories, update `STRUCTURE.md`.
+
+**Step 9**: Commit changes:
 ```bash
 git add -A
 git commit -m "type(TASK-XXX): description"
 ```
 
-**Step 8**: In `tasks/CURRENT.md`, change the task's status to `complete`.
+**Step 10**: In `tasks/CURRENT.md`, change the task's status to `complete`.
 
-**Step 9**: Append to `DEV_LOG.md`:
+**Step 11**: Append to `DEV_LOG.md`:
 ```markdown
 ## YYYY-MM-DD — TASK-XXX: Short description
 - What was implemented
 - Any notable decisions
 ```
+
+**Step 12**: Output the promise tag and **stop immediately**:
+- `<promise>TASK-XXX:DONE</promise>` — Task completed
+- `<promise>COMPLETE</promise>` — All tasks done
+- `<promise>BLOCKED:reason</promise>` — Stuck on technical issue
+- `<promise>DECIDE:question</promise>` — Need human decision

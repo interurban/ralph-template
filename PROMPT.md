@@ -2,22 +2,42 @@
 
 Read this file at the start of every agent session. It defines one complete iteration.
 
+## Before Starting
+
+1. Read `prd/SUMMARY.md` for project context.
+2. Check `STEERING.md` for critical work. If items exist, complete them **in order** before proceeding to regular tasks. Remove each item after completion.
+3. Check the last 5 entries in `DEV_LOG.md` for recent work context.
+
 ## Iteration Protocol
 
 1. **Read tasks**: Open `tasks/CURRENT.md` and find the next task with status `pending`.
 2. **Read the spec**: If the task references a spec file in `specs/`, read it before writing any code.
-3. **Implement**: Write the code and tests required by the task's acceptance criteria. Keep changes minimal and focused on this single task.
-4. **Validate**: Run `npm run validate`. This runs TypeScript checks, linting, unit tests, and E2E tests.
-5. **Fix failures**: If validation fails, fix the issues and re-run `npm run validate`. Do not proceed until all checks pass. Maximum 3 retry attempts.
-6. **Commit**: Create a git commit using conventional commit format. Reference the task ID in the commit message (e.g., `feat(TASK-001): add user profile page`).
-7. **Update task**: Mark the task as `complete` in `tasks/CURRENT.md`.
-8. **Log**: Append a brief entry to `DEV_LOG.md` with the date, task ID, and what was done.
-9. **Stop**: Do not start another task. One task per iteration keeps changes atomic and reviewable.
+3. **Check structure**: Read `STRUCTURE.md` to understand the current project layout.
+4. **Implement**: Write the code and tests required by the task's acceptance criteria. Keep changes minimal and focused on this single task.
+5. **Validate**: Run `npm run validate`. This runs TypeScript checks, linting, unit tests, and E2E tests.
+6. **Fix failures**: If validation fails, fix the issues and re-run `npm run validate`. Do not proceed until all checks pass. Maximum 3 retry attempts.
+7. **Update structure**: If you created or moved directories, update `STRUCTURE.md`.
+8. **Commit**: Create a git commit using conventional commit format. Reference the task ID in the commit message (e.g., `feat(TASK-001): add user profile page`).
+9. **Update task**: Mark the task as `complete` in `tasks/CURRENT.md`.
+10. **Log**: Append a brief entry to `DEV_LOG.md` with the date, task ID, and what was done.
+11. **Stop**: Output the appropriate promise tag and stop immediately.
+
+## Promise Tags
+
+After completing a task, output exactly one of these tags:
+
+- `<promise>TASK-{ID}:DONE</promise>` — Task completed successfully. **Stop immediately after this tag.**
+- `<promise>COMPLETE</promise>` — All tasks in `tasks/CURRENT.md` are complete.
+- `<promise>BLOCKED:brief description</promise>` — Technical issue preventing progress (broken deps, env issues, service outages).
+- `<promise>DECIDE:question</promise>` — Need human input on a decision (architecture choice, unclear requirements).
 
 ## Rules
 
+- **ONE task per session.** After committing, output the promise tag and STOP. Do not read the next task.
 - Never skip validation.
-- Never work on multiple tasks in one session.
-- If a task is unclear, stop and ask — do not guess.
-- If validation fails 3 times, mark the task as `blocked` with a note explaining the failure, and stop.
+- Never commit without passing validation.
+- If validation fails 3 times, mark the task as `blocked` with a note, output `<promise>BLOCKED:reason</promise>`, and stop.
+- If a task is unclear, output `<promise>DECIDE:question</promise>` and stop.
 - Prefer small, testable changes over large refactors.
+- No `git push`. No git remote changes.
+- Follow the code quality standards in `AGENTS.md`.
