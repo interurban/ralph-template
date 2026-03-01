@@ -1,0 +1,31 @@
+---
+description: Testing requirements and conventions for Vitest and Playwright
+globs: "**/*.{spec,test}.{ts,tsx}"
+alwaysApply: false
+---
+
+# Testing Standards
+
+## Every Feature Needs Tests
+
+- **Unit tests** (Vitest): Test logic, utilities, and component behavior in `src/__tests__/` or co-located `*.test.ts` files
+- **E2E tests** (Playwright): Test user-facing flows in `e2e/*.spec.ts`
+
+## Vitest Unit Tests
+
+- Use `describe` / `it` blocks with behavior-describing names
+- Test the happy path, edge cases, and error states
+- Import from `@/` alias, not relative paths
+- Run with `npm run test:unit`
+
+## Playwright E2E Tests
+
+- Tests live in `e2e/` directory
+- Use `page.goto('/')` with relative paths (baseURL is configured)
+- Prefer `getByRole`, `getByText`, `getByTestId` over CSS selectors
+- Run with `npm run test:e2e`
+
+## Validation
+
+- Run `npm run validate` to execute the full pipeline (TypeScript + lint + unit + E2E)
+- All tests must pass before committing

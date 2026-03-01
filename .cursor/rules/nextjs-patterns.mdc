@@ -1,0 +1,31 @@
+---
+description: Next.js App Router conventions and patterns
+globs: src/**/*.{ts,tsx}
+alwaysApply: false
+---
+
+# Next.js Patterns
+
+## App Router
+
+- Use `src/app/` for routes — each route is a directory with `page.tsx`
+- Default to Server Components. Only add `'use client'` when state, effects, or browser APIs are needed.
+- Use `layout.tsx` for shared layouts, `loading.tsx` for suspense, `error.tsx` for error boundaries
+
+## Imports
+
+- Use `@/` alias for all project imports (maps to `src/`)
+- Use `@/components/ui/` for shadcn components
+- Use `@/lib/` for utilities and shared logic
+
+## Components
+
+- Place shared components in `src/components/`
+- Place route-specific components alongside their route
+- Use shadcn/ui primitives over custom implementations when available
+
+## Data Fetching
+
+- Fetch data in Server Components using `async` functions
+- Use Server Actions for mutations
+- Avoid `useEffect` for data fetching

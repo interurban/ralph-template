@@ -1,0 +1,30 @@
+---
+description: Task file format and management conventions
+globs: tasks/**/*.md
+alwaysApply: false
+---
+
+# Task Management
+
+## Task Format
+
+```markdown
+## TASK-XXX: Short description
+- **Status**: pending | in_progress | complete | blocked
+- **Acceptance**: Specific, testable criteria
+- **Files**: List of files to create or modify
+- **Spec**: specs/relevant-spec.md (if applicable)
+```
+
+## Status Transitions
+
+- `pending` → `in_progress`: When you start working on a task
+- `in_progress` → `complete`: When validation passes and changes are committed
+- `in_progress` → `blocked`: When validation fails 3 times or the task is ambiguous
+
+## Workflow
+
+1. Pull tasks from `BACKLOG.md` to `CURRENT.md` before starting a cycle
+2. Work tasks in `CURRENT.md` in order (top = highest priority)
+3. Mark completed tasks with status `complete` — do not remove them
+4. When all tasks in `CURRENT.md` are complete, pull the next batch from `BACKLOG.md`

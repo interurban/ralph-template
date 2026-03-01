@@ -1,0 +1,30 @@
+---
+description: Git commit conventions — conventional commits with task ID references
+alwaysApply: false
+---
+
+# Commit Standards
+
+## Format
+
+```
+type(TASK-XXX): short description
+
+Optional body with context or rationale.
+```
+
+## Types
+
+- `feat`: New feature or capability
+- `fix`: Bug fix
+- `refactor`: Code restructuring without behavior change
+- `test`: Adding or updating tests
+- `docs`: Documentation changes
+- `chore`: Build, config, or tooling changes
+
+## Rules
+
+- One task = one commit. Do not batch multiple tasks into a single commit.
+- Always reference the task ID from `tasks/CURRENT.md`.
+- Write the subject in imperative mood ("add profile page" not "added profile page").
+- Keep the subject under 72 characters.

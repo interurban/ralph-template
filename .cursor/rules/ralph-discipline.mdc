@@ -1,0 +1,27 @@
+---
+description: Core Ralph Loop discipline — enforces fresh-context iteration protocol
+alwaysApply: true
+---
+
+# Ralph Iteration Discipline
+
+At the start of every session, read `PROMPT.md` for the full iteration protocol.
+
+## Session Checklist
+
+1. Read `tasks/CURRENT.md` — find the next `pending` task
+2. Read the task's spec file if one is referenced
+3. Implement only that single task
+4. Run `npm run validate` before committing
+5. Commit with conventional format referencing the task ID
+6. Mark the task `complete` in `tasks/CURRENT.md`
+7. Append an entry to `DEV_LOG.md`
+8. Stop — do not start another task
+
+## Hard Rules
+
+- One task per session. No exceptions.
+- Never commit without passing validation.
+- If validation fails 3 times, mark task `blocked` and stop.
+- If a task is ambiguous, ask the user — do not guess.
+- Keep changes minimal and focused.
