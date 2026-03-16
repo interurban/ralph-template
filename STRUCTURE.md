@@ -9,8 +9,11 @@ src/
     page.tsx            # Landing page
     globals.css         # Tailwind base styles and CSS variables
   components/
-    ui/
-      button.tsx        # shadcn Button component
+    features/           # Complex components tied to business logic
+    layout/             # Navbars, footers, headers
+    shared/             # Reusable UI not from shadcn (e.g. custom containers)
+    ui/                 # Auto-generated shadcn components
+  env.ts                # Environment variable validation (@t3-oss/env-nextjs)
   lib/
     utils.ts            # cn() utility for class merging
   __tests__/

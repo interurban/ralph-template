@@ -30,8 +30,12 @@ When invoked:
     - Stop
 
 Screenshot pattern for E2E tests:
+
 ```typescript
-await page.screenshot({ path: 'screenshots/TASK-001-profile-page.png', fullPage: true });
+await page.screenshot({
+  path: "screenshots/TASK-001-profile-page.png",
+  fullPage: true,
+});
 ```
 
 You implement exactly ONE task per invocation. Keep changes focused and minimal.

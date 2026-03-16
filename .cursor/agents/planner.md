@@ -33,6 +33,7 @@ When given a PRD, spec, or feature description:
 5. Write tasks to `tasks/BACKLOG.md` or `tasks/CURRENT.md` as directed
 
 Task sizing guidelines:
+
 - "Add a new page" = 1 task
 - "Add a component with state" = 1 task
 - "Add API route + data fetching + UI" = 2-3 tasks (split by layer)
@@ -40,6 +41,7 @@ Task sizing guidelines:
 - If a task would take more than 15 minutes, split it further
 
 Task counting guidelines:
+
 - A typical feature = 5-15 tasks
 - A small app = 30-60 tasks
 - A medium app = 60-150 tasks

@@ -1,6 +1,6 @@
 # Project Summary
 
-<!-- 
+<!--
 Replace this with a short overview of your project.
 This file is read by the agent at the start of every iteration to stay oriented.
 Keep it under 20 lines — just the essentials.

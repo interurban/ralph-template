@@ -31,8 +31,10 @@ Keep files under **300 lines**. If a file exceeds this:
 If you didn't test it, it doesn't work.
 
 Verify code by:
+
 - Running unit tests (`npm run test:unit`)
 - Running E2E tests (`npm run test:e2e`)
+- Using the **Browser Subagent** (if running via Antigravity) to visually click through the new feature.
 - Checking for type errors (`npx tsc --noEmit`)
 - Checking for lint errors (`npm run lint`)
 - Or run everything at once: `npm run validate`

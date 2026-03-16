@@ -21,24 +21,37 @@ Read this file at the start of every agent session. It defines one complete iter
 9. **Commit**: Create a git commit using conventional commit format. Reference the task ID in the commit message (e.g., `feat(TASK-001): add user profile page`).
 10. **Update task**: Mark the task as `complete` in `tasks/CURRENT.md`.
 11. **Log**: Append a brief entry to `DEV_LOG.md` with the date, task ID, and what was done.
-12. **Stop**: Output the appropriate promise tag and stop immediately.
+12. **Next Steps**: Follow the specific workflow for your Agent Type below.
 
-## Promise Tags
+---
 
-After completing a task, output exactly one of these tags:
+### If you are Cursor / Cline / Windsurf
+
+After completing a task, output exactly one of these Promise Tags and stop immediately:
 
 - `<promise>TASK-{ID}:DONE</promise>` — Task completed successfully. **Stop immediately after this tag.**
 - `<promise>COMPLETE</promise>` — All tasks in `tasks/CURRENT.md` are complete.
-- `<promise>BLOCKED:brief description</promise>` — Technical issue preventing progress (broken deps, env issues, service outages).
-- `<promise>DECIDE:question</promise>` — Need human input on a decision (architecture choice, unclear requirements).
+- `<promise>BLOCKED:description</promise>` — Technical issue preventing progress.
+- `<promise>DECIDE:question</promise>` — Need human input on a decision.
 
-## Rules
+**Hard Rule for Cursor:** ONE task per session. After committing, output the promise tag and STOP. Do not read the next task.
 
-- **ONE task per session.** After committing, output the promise tag and STOP. Do not read the next task.
+---
+
+### If you are Antigravity
+
+You do not use Promise Tags and you do not stop after one task.
+Instead, after completing Step 11, immediately trigger a `task_boundary` tool call to identify the start of the next task in `tasks/CURRENT.md`, and loop back to Step 1.
+Continue executing tasks autonomously until there are no `pending` tasks left in `tasks/CURRENT.md`. Use `notify_user` only if you are completely blocked or if explicitly asked for review.
+
+---
+
+## Universal Rules
+
 - Never skip validation.
 - Never commit without passing validation.
-- If validation fails 3 times, mark the task as `blocked` with a note, output `<promise>BLOCKED:reason</promise>`, and stop.
-- If a task is unclear, output `<promise>DECIDE:question</promise>` and stop.
+- If validation fails 3 times, mark the task as `blocked` with a note and stop to ask for help.
+- If a task is unclear, stop and ask the user for clarification.
 - Prefer small, testable changes over large refactors.
 - No `git push`. No git remote changes.
 - Follow the code quality standards in `AGENTS.md`.

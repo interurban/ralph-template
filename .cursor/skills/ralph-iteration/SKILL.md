@@ -43,17 +43,20 @@ Iteration:
 **Step 4**: Read `STRUCTURE.md` so you know where files live.
 
 **Step 5**: Implement the task:
+
 - Write production code in `src/`
 - Write Vitest unit tests for any logic
 - Write Playwright E2E tests for user-facing changes
 - Follow code quality standards in `AGENTS.md`
 
 **Step 6**: Run validation:
+
 ```bash
 npm run validate
 ```
 
 **Step 7**: If validation fails:
+
 - Read the error output
 - Fix the issue
 - Re-run validation
@@ -62,6 +65,7 @@ npm run validate
 **Step 8**: If you created or reorganized directories, update `STRUCTURE.md`.
 
 **Step 9**: Commit changes:
+
 ```bash
 git add -A
 git commit -m "type(TASK-XXX): description"
@@ -70,13 +74,16 @@ git commit -m "type(TASK-XXX): description"
 **Step 10**: In `tasks/CURRENT.md`, change the task's status to `complete`.
 
 **Step 11**: Append to `DEV_LOG.md`:
+
 ```markdown
 ## YYYY-MM-DD — TASK-XXX: Short description
+
 - What was implemented
 - Any notable decisions
 ```
 
 **Step 12**: Output the promise tag and **stop immediately**:
+
 - `<promise>TASK-XXX:DONE</promise>` — Task completed
 - `<promise>COMPLETE</promise>` — All tasks done
 - `<promise>BLOCKED:reason</promise>` — Stuck on technical issue

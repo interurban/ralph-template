@@ -17,6 +17,7 @@ One paragraph describing what this feature does and why it exists.
 ## Technical Approach
 
 Brief description of the implementation approach. Include:
+
 - Key files to create or modify
 - Data flow or state management approach
 - External dependencies (if any)

@@ -22,15 +22,15 @@ npm run dev
 
 ## Scripts
 
-| Command | What it does |
-|---------|-------------|
-| `npm run dev` | Start dev server |
-| `npm run build` | Production build |
-| `npm run lint` | Run ESLint |
-| `npm run test:unit` | Run Vitest unit tests |
-| `npm run test:e2e` | Run Playwright E2E tests |
-| `npm run test` | Run all tests (unit + E2E) |
-| `npm run validate` | Full pipeline: TypeScript + lint + unit + E2E |
+| Command             | What it does                                  |
+| ------------------- | --------------------------------------------- |
+| `npm run dev`       | Start dev server                              |
+| `npm run build`     | Production build                              |
+| `npm run lint`      | Run ESLint                                    |
+| `npm run test:unit` | Run Vitest unit tests                         |
+| `npm run test:e2e`  | Run Playwright E2E tests                      |
+| `npm run test`      | Run all tests (unit + E2E)                    |
+| `npm run validate`  | Full pipeline: TypeScript + lint + unit + E2E |
 
 ## Ralph Loop: How It Works
 
@@ -38,13 +38,13 @@ The Ralph pattern treats the AI agent as a stateless worker that forgets everyth
 
 ### Core Files
 
-| File | Purpose |
-|------|---------|
-| `PROMPT.md` | Iteration instructions — read at session start |
-| `tasks/BACKLOG.md` | All planned work, ordered by priority |
-| `tasks/CURRENT.md` | Tasks being worked on this cycle |
-| `specs/` | Feature specifications (use `specs/TEMPLATE.md`) |
-| `DEV_LOG.md` | Append-only log of completed iterations |
+| File               | Purpose                                          |
+| ------------------ | ------------------------------------------------ |
+| `PROMPT.md`        | Iteration instructions — read at session start   |
+| `tasks/BACKLOG.md` | All planned work, ordered by priority            |
+| `tasks/CURRENT.md` | Tasks being worked on this cycle                 |
+| `specs/`           | Feature specifications (use `specs/TEMPLATE.md`) |
+| `DEV_LOG.md`       | Append-only log of completed iterations          |
 
 ### One Iteration
 
@@ -56,41 +56,32 @@ The Ralph pattern treats the AI agent as a stateless worker that forgets everyth
 6. If fail: fix and retry (max 3x), then mark blocked
 7. Stop — one task per session
 
-### Cursor Integration
+### Dual-Agent Architecture
 
-The template includes Cursor-specific files that enforce the Ralph discipline:
+The Ralph pattern externalizes the agent's memory into files so it doesn't get confused over time. This template supports two styles of AI execution out-of-the-box:
 
-**Rules** (`.cursor/rules/`):
-- `ralph-discipline.mdc` — Core iteration protocol (always active)
-- `nextjs-patterns.mdc` — App Router conventions
-- `testing-standards.mdc` — Test requirements
-- `task-management.mdc` — Task file format
-- `commit-standards.mdc` — Conventional commit format
+**1. Cursor / Standard Agents (`.cursor/rules`)**
+Cursor struggles with continuous multi-task autonomous loops due to context window degradation. For Cursor, this template enforces a **strict stop protocol**. The agent will complete _one_ task, commit, output a `<promise>TASK-XXX:DONE</promise>` tag, and force you to start a fresh agent session.
 
-**Subagents** (`.cursor/agents/`):
-- `planner` — Breaks specs into atomic tasks (does not write code)
-- `implementer` — Picks a task and delivers working, tested code
-- `reviewer` — Reviews the latest diff for quality and security
-
-**Skills** (`.cursor/skills/`):
-- `ralph-iteration` — Full iteration workflow checklist
-
-### Running an Iteration
-
-Start a new Cursor agent session and say:
+To run with Cursor:
 
 > "Read PROMPT.md and do the next task"
 
-Or use the implementer subagent:
+**2. Antigravity (`.agents/workflows`)**
+Antigravity is designed for continuous, long-running autonomous development loops. It utilizes native `task_boundary` tools to partition work without clearing the context window completely. Antigravity will loop through `tasks/CURRENT.md` continuously until it finishes the queue or runs into a problem.
 
-> "Use the implementer to do the next task in tasks/CURRENT.md"
+To run with Antigravity:
+
+> "/ralph-iteration"
 
 ### Planning Work
 
 To break down a feature into tasks:
 
 1. Write a spec in `specs/` using `specs/TEMPLATE.md`
-2. Ask the planner: "Use the planner to break down specs/my-feature.md into tasks"
+2. Ask your agent to plan:
+   - **Cursor**: "Use the planner agent to break down specs/my-feature.md into tasks"
+   - **Antigravity**: "/planning"
 3. Review the generated tasks in `tasks/BACKLOG.md`
 4. Move ready tasks to `tasks/CURRENT.md`
 
